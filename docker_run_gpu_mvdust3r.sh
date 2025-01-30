@@ -27,7 +27,7 @@ if [ -z "$WORKDIR" ]; then
 fi
 
 # 컨테이너 이름 설정
-CONTAINER_NAME="gpu-practice"
+CONTAINER_NAME="mvdust3r"
 
 # Docker 컨테이너 실행 (GPU 지원 및 이름 지정)
 docker run --rm -it \
