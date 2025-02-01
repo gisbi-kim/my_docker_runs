@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Docker 이미지 설정
-IMAGE="nvidia/cuda:12.0.0-devel-ubuntu22.04-mvdust3r"
+IMAGE="hloc:latest"
 
 # 이미지가 로컬에 있는지 확인
 if ! docker images --format "{{.Repository}}:{{.Tag}}" | grep "$IMAGE"; then
@@ -22,7 +22,7 @@ echo "작업 디렉토리를 입력하세요 (Enter를 누르면 기본 디렉�
 read WORKDIR
 # 기본 디렉토리 설정
 if [ -z "$WORKDIR" ]; then
-    WORKDIR="/home/gskim/Documents/practices/mvdust3r"
+    WORKDIR="/home/gskim/Documents/practices/Hierarchical-Localization"
     echo "WORKDIR 기본 디렉토리 사용: $WORKDIR"
 fi
 
@@ -32,21 +32,21 @@ echo "Data 디렉토리를 입력하세요 (Enter를 누르면 기본 디렉토�
 read DATADIR
 # 기본 디렉토리 설정
 if [ -z "$DATADIR" ]; then
-    DATADIR="/home/gskim/Documents/data/iphone/stray"
+    DATADIR="/media/gskim/D50 SSD/data/"
     echo "DATADIR 기본 디렉토리 사용: $DATADIR"
 fi
 
 # 컨테이너 이름 설정
-CONTAINER_NAME="mvdust3r"
+CONTAINER_NAME="hloc"
 
 # Docker 컨테이너 실행 (GPU 지원 및 이름 지정)
 docker run --rm -it \
     --privileged \
     --gpus all \
-    -e CUDA_VISIBLE_DEVICES=0 \
     --name "$CONTAINER_NAME" \
     -v "$WORKDIR":/ws \
     -v "$DATADIR":/data \
     -w /ws \
     --net=host \
-    "$IMAGE" \    /bin/bash -c "export PYTHONPATH=$PYTHONPATH:/ws/lib/python3.10/site-packages && python3 demo.py --weights ./checkpoints/MVDp_s2.pth; bash;"
+    "$IMAGE" \
+    /bin/bash -c "bash;"
