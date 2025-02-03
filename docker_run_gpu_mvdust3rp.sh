@@ -22,7 +22,7 @@ echo "작업 디렉토리를 입력하세요 (Enter를 누르면 기본 디렉�
 read WORKDIR
 # 기본 디렉토리 설정
 if [ -z "$WORKDIR" ]; then
-    WORKDIR="/home/gskim/Documents/practices/mvdust3r"
+    WORKDIR="/home/gskim/Documents/git/mvdust3r-slam"
     echo "WORKDIR 기본 디렉토리 사용: $WORKDIR"
 fi
 
@@ -50,4 +50,6 @@ docker run --rm -it \
     -w /ws \
     --net=host \
     "$IMAGE" \
-    /bin/bash -c "export PYTHONPATH=$PYTHONPATH:/ws/lib/python3.10/site-packages && python3 demo.py --weights ./checkpoints/MVDp_s2.pth; bash;"
+    /bin/bash -c "export PYTHONPATH=$PYTHONPATH:/ws/mvdust3r-main/lib/python3.10/site-packages && cd mvdust3r-main/; bash; echo ' '; echo 'python3 demo_chunks_automation.py'; echo ' or'; echo 'python3 demo.py --weights ./checkpoints/MVDp_s2.pth;'; python3 demo.py --weights ./checkpoints/MVDp_s2.pth; bash;"
+    # or python3 demo_chunks_automation.py
+    # or python3 demo.py --weights ./checkpoints/MVDp_s2.pth;
