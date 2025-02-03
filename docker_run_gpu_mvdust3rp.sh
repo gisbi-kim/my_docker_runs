@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Docker 이미지 설정
-IMAGE="gsk1m/nvidia-cuda:12.0.0-devel-ubuntu22.04-mvdust3r"
+# IMAGE="gsk1m/nvidia-cuda:12.0.0-devel-ubuntu22.04-mvdust3r"
+IMAGE="nvidia/cuda:12.0.0-devel-ubuntu22.04-mvdust3r"
 
 # 이미지가 로컬에 있는지 확인
 if ! docker images --format "{{.Repository}}:{{.Tag}}" | grep "$IMAGE"; then
@@ -28,11 +29,11 @@ fi
 
 # 사용자로부터 data디렉토리 입력 받기
 echo ""
-echo "Data 디렉토리를 입력하세요 (Enter를 누르면 기본 디렉토리 사용):"
+echo "Data 디렉토리를 입력하세요! (Enter를 누르면 기본 디렉토리 사용):"
 read DATADIR
 # 기본 디렉토리 설정
 if [ -z "$DATADIR" ]; then
-    DATADIR="/media/gskim/D50 SSD/data/iphone/stray"
+    DATADIR="/home/gskim/Documents/data_d50"
     echo "DATADIR 기본 디렉토리 사용: $DATADIR"
 fi
 
@@ -50,6 +51,6 @@ docker run --rm -it \
     -w /ws \
     --net=host \
     "$IMAGE" \
-    /bin/bash -c "export PYTHONPATH=$PYTHONPATH:/ws/mvdust3r-main/lib/python3.10/site-packages && cd mvdust3r-main/; bash; echo ' '; echo 'python3 demo_chunks_automation.py'; echo ' or'; echo 'python3 demo.py --weights ./checkpoints/MVDp_s2.pth;'; python3 demo.py --weights ./checkpoints/MVDp_s2.pth; bash;"
+    /bin/bash -c "export PYTHONPATH=$PYTHONPATH:/ws/mvdust3r-main/lib/python3.10/site-packages && cd mvdust3r-main/; echo ' '; echo 'python3 demo_chunks_automation.py'; echo ' or'; echo 'python3 demo.py --weights ./checkpoints/MVDp_s2.pth;'; bash; python3 demo.py --weights ./checkpoints/MVDp_s2.pth; bash;"
     # or python3 demo_chunks_automation.py
     # or python3 demo.py --weights ./checkpoints/MVDp_s2.pth;
