@@ -33,7 +33,7 @@ echo "Data 디렉토리를 입력하세요! (Enter를 누르면 기본 디렉토
 read DATADIR
 # 기본 디렉토리 설정
 if [ -z "$DATADIR" ]; then
-    DATADIR="/home/gskim/Documents/data_d50"
+    DATADIR="/home/gskim/Documents/data_d50/data"
     echo "DATADIR 기본 디렉토리 사용: $DATADIR"
 fi
 
